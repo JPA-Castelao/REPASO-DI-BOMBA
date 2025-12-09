@@ -1,9 +1,10 @@
 import sys
-from PySide6.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLineEdit, QPushButton, QListWidget, QLabel, QSlider, QComboBox, QGroupBox
 )
-from PySide6.QtCore import Qt
+from PyQt6.QtCore import Qt
+
 
 class ControlesAvanzados(QMainWindow):
     def __init__(self):
@@ -24,7 +25,6 @@ class ControlesAvanzados(QMainWindow):
         self.input_tarea = QLineEdit()
         input_layout.addWidget(self.input_tarea)
 
-
         # QComboBox ( selector desplegable )
         selector_layout = QHBoxLayout()
         selector_layout.addWidget(QLabel("Prioridad:"))
@@ -36,7 +36,8 @@ class ControlesAvanzados(QMainWindow):
 
         # QSilder
         selector_layout.addWidget(QLabel("Tiempo estimado (horas): "))
-        self.slider_tiempo = QSlider(Qt.Horizontal)
+        # self.slider_tiempo = QSlider(Qt.Horizontal)
+        self.slider_tiempo = QSlider(Qt.Orientation.Horizontal)
         self.slider_tiempo.setMinimum(1)
         self.slider_tiempo.setMaximum(20)
         self.slider_tiempo.setValue(10)
@@ -49,13 +50,13 @@ class ControlesAvanzados(QMainWindow):
 
         input_layout.addLayout(selector_layout)
 
-        #Boton de añadir y mensaje de texto
+        # Boton de añadir y mensaje de texto
         self.btn_anadir = QPushButton("Añadir")
         input_layout.addWidget(self.btn_anadir)
 
         main_layout.addWidget(input_group)
 
-        #Panel de lista ( QListWidget )
+        # Panel de lista ( QListWidget )
         main_layout.addWidget(QLabel("Tareas del proyecto:"))
         self.list_proyecto = QListWidget()
         main_layout.addWidget(self.list_proyecto)
@@ -63,17 +64,15 @@ class ControlesAvanzados(QMainWindow):
         self.btn_eliminar = QPushButton("Eliminar Tarea selecionada")
         main_layout.addWidget(self.btn_eliminar)
 
+        # Conexiones
 
-        #Conexiones
-
-        #Slider
+        # Slider
         self.slider_tiempo.valueChanged.connect(self.actualizar_tiempo)
 
-        #Botones y entrada de texto
+        # Botones y entrada de texto
         self.btn_anadir.clicked.connect(self.añadir_tarea)
         self.input_tarea.returnPressed.connect(self.añadir_tarea)
         self.btn_eliminar.clicked.connect(self.eliminar_tarea)
-
 
         # Slots
 
@@ -99,7 +98,6 @@ class ControlesAvanzados(QMainWindow):
         self.slider_tiempo.setValue(10)
         self.combo_prioridad.setCurrentIndex(0)
         self.input_tarea.setFocus()
-
 
     def eliminar_tarea(self):
         items_a_eliminar = self.list_proyecto.selectedItems()
